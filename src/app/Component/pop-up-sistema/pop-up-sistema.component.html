@@ -1,0 +1,84 @@
+<mat-dialog-content>
+  <div class="card bg-white text-dark">
+    <div class="card-header">{{info}}</div>
+    <div class="card-body">
+      <form #sistemaform="ngForm" >
+
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Nombre del sistema</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="sistema.sistema" name="nombreSistema"
+            required maxlength="20" minlength="5" #nombresistema="ngModel">
+            <div class="alert alert-danger" *ngIf="nombresistema.errors && (nombresistema.dirty ||nombresistema.touched)" >
+              <div *ngIf="nombresistema.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="nombresistema.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Descripcion</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="sistema.descripcion" name="descripcion"
+            required maxlength="20" minlength="5" #descripcion="ngModel">
+            <div class="alert alert-danger" *ngIf="descripcion.errors && (descripcion.dirty ||descripcion.touched)" >
+              <div *ngIf="descripcion.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="descripcion.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Numero de Version </label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="sistema.numversion" name="numVersion"
+            required maxlength="20" minlength="5" #numVersion="ngModel">
+            <div class="alert alert-danger" *ngIf="numVersion.errors && (numVersion.dirty ||numVersion.touched)" >
+              <div *ngIf="numVersion.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="numVersion.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="ind_baja" class="col-form-label col-sm-2">Se encuentra activo?</label>
+          <div class="col-sm-6">
+            <div>
+              <input type="radio"  name="ind_baja" [value]=true  [(ngModel)]="sistema.indbaja" checked>
+              <label for="bajaChoice1">SI</label>
+            </div>
+            <div>
+              <input type="radio" name="ind_baja" [(ngModel)]="sistema.indbaja" [value]=false checked>
+            <label  for="bajaChoice2">NO</label>
+            </div>
+
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-light" (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-primary"  (click)="crearModificarSistema()" role="button" [disabled]="!sistemaform.form.valid" >{{infoBoton}} </button>
+    </div>
+
+  </div>
+</mat-dialog-actions>
+

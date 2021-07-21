@@ -1,0 +1,43 @@
+<div class ="container" style="display: inline-block;">
+  <div class = "card" style="display: inline-block;">
+
+      <h3 class="text-center"> Listado de empresas</h3>
+      <div class = "card-body">
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" (click)="AbrirPopUp()" role="button"> {{info}}</button>
+          </div>
+        </div>
+          <table class="table table-striped">
+              <thead style="text-align: center; ">
+                  <th> Codigo de empresa </th>
+                  <th> Razon social </th>
+                  <th> Nombre Comercial </th>
+                  <th> Nombre de la empresa </th>
+                  <th> RUC </th>
+                  <th> Indicador de baja </th>
+                  <th> Fecha de baja </th>
+                  <th> Editar </th>
+                  <th> Borrar </th>
+              </thead>
+              <tbody style="text-align: center; ">
+                  <tr *ngFor = "let empresa of empresas">
+                      <td> {{ empresa.id}}</td>
+                      <td> {{ empresa.razonsocial}}</td>
+                      <td> {{ empresa.nomcomercial}}</td>
+                      <td> {{ empresa.nomempresa}}</td>
+                      <td>{{ empresa.codigoruc }}</td>
+                      <td> {{ empresa.indbaja}}</td>
+                      <td> {{ empresa.fechabaja|date:'longDate'}}</td>
+                      <td>
+                        <button type="button" name="button" (click)="modificar(empresa)" class="btn btn-primary">Editar</button>
+                      </td>
+                      <td>
+                        <button type="button" style="background-color: red;" name="button" (click)="eliminar(empresa)" class="btn btn-primary">Eliminar</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

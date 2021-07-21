@@ -1,0 +1,157 @@
+<mat-dialog-content>
+  <div class="card bg-white text-dark">
+    <div class="card-header">{{info}}</div>
+    <div class="card-body">
+      <form #conexionform="ngForm">
+
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Servidor Instancia</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="conexion.bdservinstancia" name="bdservInstancia"
+            required maxlength="30" minlength="5" #bdservinstancia="ngModel">
+            <div class="alert alert-danger" *ngIf="bdservinstancia.errors && (bdservinstancia.dirty ||bdservinstancia.touched)" >
+              <div *ngIf="bdservinstancia.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="bdservinstancia.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Nombre de la conexion</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="conexion.bdnombre" name="bdnombre"
+            required maxlength="30" minlength="5" #bdnombre="ngModel">
+            <div class="alert alert-danger" *ngIf="bdnombre.errors && (bdnombre.dirty ||bdnombre.touched)" >
+              <div *ngIf="bdnombre.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="bdnombre.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Tipo</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.bdtipo" name="bdtipo"
+            required maxlength="30" minlength="5" #bdtipo="ngModel">
+            <div class="alert alert-danger" *ngIf="bdtipo.errors && (bdtipo.dirty ||bdtipo.touched)" >
+              <div *ngIf="bdtipo.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="bdtipo.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Usuario</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.bdusuario" name="bdusuario"
+            required maxlength="20" minlength="4" #bdusuario="ngModel">
+            <div class="alert alert-danger" *ngIf="bdusuario.errors && (bdusuario.dirty ||bdusuario.touched)" >
+              <div *ngIf="bdusuario.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="bdusuario.errors.minlength">
+                Debe ser mayor de 4 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Contraseña</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.bdcontra" name="bdcontra"
+            required maxlength="20" minlength="1" #bdcontra="ngModel">
+            <div class="alert alert-danger" *ngIf="bdcontra.errors && (bdcontra.dirty ||bdcontra.touched)" >
+              <div *ngIf="bdcontra.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="bdcontra.errors.minlength">
+                Debe ser mayor de 1 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">TOM CAT puerto</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.tomcatpuerto" name="tomcatpuerto"
+            required maxlength="20" minlength="4" #tomcatpuerto="ngModel">
+            <div class="alert alert-danger" *ngIf="tomcatpuerto.errors && (tomcatpuerto.dirty ||tomcatpuerto.touched)" >
+              <div *ngIf="tomcatpuerto.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="tomcatpuerto.errors.minlength">
+                Debe ser mayor de 4 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">TOM CAT usuario</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.tomcatusuario" name="tomcatusuario"
+            required maxlength="20" minlength="5" #tomcatusuario="ngModel">
+            <div class="alert alert-danger" *ngIf="tomcatusuario.errors && (tomcatusuario.dirty ||tomcatusuario.touched)" >
+              <div *ngIf="tomcatusuario.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="tomcatusuario.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">TOM CAT Contraseña</label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.tomcatcontra" name="tomcatcontra"
+            required maxlength="20" minlength="1" #tomcatcontra="ngModel">
+            <div class="alert alert-danger" *ngIf="tomcatcontra.errors && (tomcatcontra.dirty ||tomcatcontra.touched)" >
+              <div *ngIf="tomcatcontra.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="tomcatcontra.errors.minlength">
+                Debe ser mayor de 1 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2"> Web Url </label>
+          <div class="col-sm-6">
+            <input type="int" class="form-control" [(ngModel)]="conexion.weburl" name="weburl"
+            required maxlength="20" minlength="5" #weburl="ngModel">
+            <div class="alert alert-danger" *ngIf="weburl.errors && (weburl.dirty ||weburl.touched)" >
+              <div *ngIf="weburl.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="weburl.errors.minlength">
+                Debe ser mayor de 5 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-light" (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-primary"  (click)="crearModificarConexion()" role="button" [disabled]="!conexionform.form.valid">{{infoBoton}}</button>
+    </div>
+
+  </div>
+</mat-dialog-actions>

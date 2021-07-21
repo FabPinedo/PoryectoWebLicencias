@@ -1,0 +1,50 @@
+<div class ="container" style="display: inline-block;">
+  <div class = "card" style="display: inline-block;">
+      <h3 class="text-center"> Listado de contratos </h3>
+      <div class = "card-body">
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" (click)="AbrirPopUp()" role="button"> {{info}} </button>
+          </div>
+        </div>
+          <table class="table table-striped">
+              <thead style="text-align: center; ">
+                  <th> Codigo de Contrato </th>
+                  <th> Codigo de empresa </th>
+                  <th> Nombre de la empresa </th>
+                  <th> Codigo de sistema </th>
+                  <th> Nombre del sistema </th>
+                  <th> Codigo de conexion </th>
+                  <th> Nombre de la conexion </th>
+                  <th> Fecha de inicio </th>
+                  <th> Fecha de fin </th>
+                  <th> Estado </th>
+                  <th> Token </th>
+                  <th> Editar </th>
+                  <th> Borrar </th>
+              </thead>
+              <tbody style="text-align: center; ">
+                  <tr *ngFor = "let contrato of contratos">
+                    <td> {{ contrato.id }}</td>
+                    <td> {{ contrato.codempresa }}</td>
+                    <td> {{ contrato.empresa.nomempresa }}</td>
+                    <td> {{ contrato.codsistema }}</td>
+                    <td> {{ contrato.sistema.sistema }}</td>
+                    <td> {{ contrato.codconexion }}</td>
+                    <td> {{ contrato.conexion.bdservinstancia}}</td>
+                    <td> {{ contrato.fechainicontrato }}</td>
+                    <td> {{ contrato.fechafincontrato }}</td>
+                    <td> {{ contrato.estado }}</td>
+                    <td> {{ contrato.token }}</td>
+                    <td>
+                      <button type="button" name="button" (click)="modificar(contrato)" class="btn btn-primary">Editar</button>
+                    </td>
+                    <td>
+                      <button type="button" style="background-color: red;" name="button" (click)="eliminar(contrato)" class="btn btn-primary">Eliminar</button>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

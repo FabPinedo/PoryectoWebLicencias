@@ -1,0 +1,40 @@
+<div class ="container"style="display: inline-block;" >
+  <div class = "card" style="display: inline-block;">
+
+      <h3 class="text-center"> Listado de Sistemas </h3>
+      <div class = "card-body">
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" (click)="AbrirPopUp()" role="button"> Crear datos de nuevo sistema</button>
+          </div>
+        </div>
+          <table class="table table-striped">
+              <thead style="text-align: center; ">
+                  <th> id</th>
+                  <th> Sistema </th>
+                  <th> Descripcion </th>
+                  <th> Numero de version </th>
+                  <th> IND Baja </th>
+                  <th> Editar </th>
+                  <th> Borrar </th>
+              </thead>
+              <tbody style="text-align: center; ">
+                  <tr *ngFor = "let sistema of sistemas">
+                      <td> {{ sistema.id}}</td>
+                      <td> {{ sistema.sistema}}</td>
+                      <td> {{ sistema.descripcion}}</td>
+                      <td> {{ sistema.numversion}}</td>
+                      <td>{{  sistema.indbaja}}</td>
+                      <td>
+                        <button type="button" name="button" (click)="modificar(sistema)" class="btn btn-primary">Editar</button>
+                      </td>
+                      <td>
+                        <button type="button" style="background-color: red;" name="button" (click)="eliminar(sistema)" class="btn btn-primary">Borrar</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
