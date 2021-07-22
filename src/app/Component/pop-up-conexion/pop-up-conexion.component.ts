@@ -35,26 +35,26 @@ export class PopUpConexionComponent implements OnInit {
 
   crearModificarConexion(){
     if(this.infoBoton=="Crear Datos"){
-    console.log(this.conexion)
-
-    this.conexionService.crearConexion(this.conexion).subscribe(
-      response=>{
-
-      Swal.fire('Nueva conexion',`Nuevo conexion: ${this.conexion.bdnombre} creado con exito `, 'success')
-
-    }
-    )
-    this.dialogref.close();
-    window.location.reload();
+      if(parseInt(this.conexion.tomcatpuerto)>1000){
+        console.log(this.conexion)
+        this.conexionService.crearConexion(this.conexion).subscribe(
+        response=>{
+        Swal.fire('Nueva conexion',`Nuevo conexion: ${this.conexion.bdnombre} creado con exito `, 'success')
+        })
+        this.dialogref.close();
+        window.location.reload();
+      }else{
+        Swal.fire('Puerto Invalido', '', 'error')
+      }
   }else if(this.infoBoton="Modificar Datos"){
-
-    Swal.fire({
+    if(parseInt(this.conexion.tomcatpuerto)>1000){
+      Swal.fire({
       title: `Se hara el siguiente cambio de datos a la conexion: ${this.conexion.bdnombre}`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: `Guardar`,
       denyButtonText: `Cancelar`,
-    }).then((result) => {
+      }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.conexionService.modificarConexion(this.conexion).subscribe(
@@ -63,9 +63,12 @@ export class PopUpConexionComponent implements OnInit {
         window.location.reload();
       } else if (result.isDenied) {
         Swal.fire('No se produjo ningun cambio', '', 'info')
-      }
-    })
-   
+        }
+      })
+  }else{
+    Swal.fire('Puerto Invalido', '', 'error')
+  }
+
 
   }
 

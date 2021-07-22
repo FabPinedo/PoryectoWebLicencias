@@ -83,13 +83,13 @@
           <label for="id" class="col-form-label col-sm-2">TOM CAT puerto</label>
           <div class="col-sm-6">
             <input type="int" class="form-control" [(ngModel)]="conexion.tomcatpuerto" name="tomcatpuerto"
-            required maxlength="20" minlength="4" #tomcatpuerto="ngModel">
+            required maxlength="4" minlength="4" #tomcatpuerto="ngModel">
             <div class="alert alert-danger" *ngIf="tomcatpuerto.errors && (tomcatpuerto.dirty ||tomcatpuerto.touched)" >
               <div *ngIf="tomcatpuerto.errors.required">
                 Este campo es obligatorio
               </div>
               <div *ngIf="tomcatpuerto.errors.minlength">
-                Debe ser mayor de 4 caracteres
+                Debe ser mayor de 4 digitos
               </div>
             </div>
           </div>

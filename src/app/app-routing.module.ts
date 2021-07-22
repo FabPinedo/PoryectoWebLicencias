@@ -6,6 +6,11 @@ import { EmpresaListComponent } from './Component/empresa-list/empresa-list.comp
 import { SistemaListComponent } from './Component/sistema-list/sistema-list.component';
 
 const routes: Routes = [
+  { path: '', component: EmpresaListComponent,  pathMatch: 'full'},
+  { path: 'Empresa', component: EmpresaListComponent},
+  { path: 'Contrato', component: ContratoListComponent},
+  { path: 'Sistema', component: SistemaListComponent},
+  { path: 'Conexion', component: ConexionListComponent}
 /*
   { path: '/Empresa', component: EmpresaListComponent},
   { path: '/Contrato', component: ContratoListComponent},

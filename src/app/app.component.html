@@ -68,7 +68,16 @@
 
 
           <li class="pb-5">
-            <a style="font-size: large;">HOLLLLLLALAA</a>
+            <a style="font-size: large;" routerLink="Empresa">Empresa Component</a>
+          </li>
+          <li class="pb-5">
+            <a style="font-size: large;" routerLink="Sistema">Sistema Component</a>
+          </li>
+          <li class="pb-5">
+            <a style="font-size: large;" routerLink="Conexion">Conexion Component</a>
+          </li>
+          <li class="pb-5">
+            <a style="font-size: large;" routerLink="Contrato">Contrato Component</a>
           </li>
 
         </ul>
@@ -90,11 +99,7 @@
 
 
         <!-- Main row -->
-      <app-conexion-list></app-conexion-list>
-      <app-contrato-list>
-      </app-contrato-list>
-      <app-empresa-list></app-empresa-list>
-      <app-sistema-list></app-sistema-list>
+        <router-outlet></router-outlet>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
