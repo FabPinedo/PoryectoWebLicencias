@@ -57,49 +57,55 @@ export class PopUpContratoComponent implements OnInit {
   crearModificarcontrato(){
     if(this.infoBoton=="Crear Datos"){
       if(this.contrato.estado!=null){
-    console.log(this.contrato)
-
-    this.contratoService.crearContrato(this.contrato).subscribe(
-      response=>{
-        console.log(this.contrato)
-      Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success')
+        if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
+          if(parseInt(this.contrato.token)>100000){
+            console.log("FUNCIONA")
+            this.contratoService.crearContrato(this.contrato).subscribe(
+            response=>{
+            console.log(this.contrato)
+            Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success')
+            this.dialogref.close()
+            window.location.reload()
+            })
+          }else{
+            Swal.fire('El token no es valido',"", 'error')
+            }
+        }else{
+          Swal.fire('Seleccione fechas validas, la fecha de inicio no puede ser mayor a la fecha fin ',"", 'error')
+        }
+    }else{
+      Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
     }
-    )
-    this.dialogref.close();
-  }else{
-    Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
+    }else if(this.infoBoton="Modificar Datos"){
+      if(this.contrato.estado!=null){
+        if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
+            Swal.fire({
+            title: `Se hara el siguiente cambio de datos del contrato: ${this.contrato.id}`,
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: `Guardar`,
+            denyButtonText: `Cancelar`,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              this.contratoService.modificarContrato(this.contrato).subscribe(
+                response=>{
+              Swal.fire('Se realizaron los cambios!', '', 'success')})
+              this.dialogref.close();
+              window.location.reload();
+            }else if (result.isDenied) {
+              Swal.fire('No se produjo ningun cambio', '', 'info')
+            }
+            })
+        }else{
+          Swal.fire('Seleccione fechas validas, la fecha de inicio no puede ser mayor a la fecha fin ',"", 'error')
+          }
+      }else{
+        Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
+     }
+
   }
-  }else if(this.infoBoton="Modificar Datos"){
-    if(this.contrato.estado!=null){
-    Swal.fire({
-      title: `Se hara el siguiente cambio de datos del contrato: ${this.contrato.id}`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: `Guardar`,
-      denyButtonText: `Cancelar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.contratoService.modificarContrato(this.contrato).subscribe(
-          response=>{
-        Swal.fire('Se realizaron los cambios!', '', 'success')})
-        this.dialogref.close();
-        window.location.reload();
-      } else if (result.isDenied) {
-        Swal.fire('No se produjo ningun cambio', '', 'info')
-      }
-    })
-
-
-
-  }}else{
-    Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
-  }
-
-
-
-console.log(this.contrato)
-  }
+}
   cancelar(){
     this.dialogref.close();
   }

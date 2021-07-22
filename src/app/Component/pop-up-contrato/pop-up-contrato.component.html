@@ -81,13 +81,13 @@
           <label for="id" class="col-form-label col-sm-2">TOKEN</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" [(ngModel)]="contrato.token" name="nombreComercial"
-            required minlength="4" maxlength="10" #token="ngModel">
+            required minlength="4" maxlength="6" #token="ngModel">
             <div class="alert alert-danger" *ngIf="token.errors && (token.dirty ||token.touched)" >
               <div *ngIf="token.errors.required">
                 Este campo es obligatorio
               </div>
               <div *ngIf="token.errors.minlenght">
-                Debe ser mayor a 4 digitos
+                Debe ser de 6 digitos
               </div>
             </div>
           </div>

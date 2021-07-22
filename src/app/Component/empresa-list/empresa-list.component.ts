@@ -5,7 +5,7 @@ import{Empresa} from 'src/app/Clases/empresa';
 import { EmpresaService } from 'src/app/Servicio/empresa.service';
 
 import Swal from 'sweetalert2';
-import { EmpresaModComponent } from '../empresa-mod/empresa-mod.component';
+
 import { PopupComponent } from '../popupEmpresa/popup.component';
 
 @Component({

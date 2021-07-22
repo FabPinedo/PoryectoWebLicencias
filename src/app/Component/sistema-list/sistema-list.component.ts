@@ -5,7 +5,6 @@ import{Sistema} from 'src/app/Clases/sistema';
 import { SistemaService } from 'src/app/Servicio/sistema.service';
 
 import Swal from 'sweetalert2';
-import { EmpresaModComponent } from '../empresa-mod/empresa-mod.component';
 import { PopUpSistemaComponent } from '../pop-up-sistema/pop-up-sistema.component';
 import { PopupComponent } from '../popupEmpresa/popup.component';
 

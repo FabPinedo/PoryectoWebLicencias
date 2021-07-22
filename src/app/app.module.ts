@@ -13,7 +13,7 @@ import { FormsModule, Validators } from '@angular/forms';
 import { EmpresaService } from './Servicio/empresa.service';
 import { PopupComponent } from './Component/popupEmpresa/popup.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { EmpresaModComponent } from './Component/empresa-mod/empresa-mod.component';
+
 import { PopUpSistemaComponent } from './Component/pop-up-sistema/pop-up-sistema.component';
 import { PopUpConexionComponent } from './Component/pop-up-conexion/pop-up-conexion.component';
 import { PopUpContratoComponent } from './Component/pop-up-contrato/pop-up-contrato.component';
@@ -27,7 +27,6 @@ import { PopUpContratoComponent } from './Component/pop-up-contrato/pop-up-contr
     ConexionListComponent,
     ContratoListComponent,
     PopupComponent,
-    EmpresaModComponent,
     PopUpSistemaComponent,
     PopUpConexionComponent,
     PopUpContratoComponent
