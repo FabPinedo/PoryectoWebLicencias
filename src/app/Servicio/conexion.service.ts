@@ -16,6 +16,10 @@ export class ConexionService {
     const baseUrl1=this.baseUrl+"/find/listado"
     return this.http.get<Conexion[]>(`${baseUrl1}`);
   }
+  getConexionPagina(page:number): Observable<Conexion[]>{
+    const baseUrl1=this.baseUrl+"/find/page";
+    return this.http.get<Conexion[]>(`${baseUrl1}/${page}`);
+  }
 
 
   crearConexion(conexion:Conexion): Observable<Conexion>{

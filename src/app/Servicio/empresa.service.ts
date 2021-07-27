@@ -12,10 +12,17 @@ export class EmpresaService {
 
   private baseUrl = "http://localhost:800/Empresa";
   private cabezera= new HttpHeaders({'Content-Type':'application/json'})
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+  }
+
   getEmpresa(): Observable<Empresa[]>{
     const baseUrl1=this.baseUrl+"/find/listado";
     return this.http.get<Empresa[]>(`${baseUrl1}`);
+  }
+  getEmpresaPagina(page:number): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/page";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${page}`);
   }
 
 

@@ -17,6 +17,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpSistemaComponent } from './Component/pop-up-sistema/pop-up-sistema.component';
 import { PopUpConexionComponent } from './Component/pop-up-conexion/pop-up-conexion.component';
 import { PopUpContratoComponent } from './Component/pop-up-contrato/pop-up-contrato.component';
+import { PaginadorComponent } from './Component/paginador/paginador.component';
+import { BusquedaComponent } from './Component/busqueda/busqueda.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { PopUpContratoComponent } from './Component/pop-up-contrato/pop-up-contr
     PopupComponent,
     PopUpSistemaComponent,
     PopUpConexionComponent,
-    PopUpContratoComponent
+    PopUpContratoComponent,
+    PaginadorComponent,
+    BusquedaComponent
   ],
   imports: [
     BrowserModule,

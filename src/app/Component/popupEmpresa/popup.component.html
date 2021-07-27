@@ -1,13 +1,19 @@
+
+
 <mat-dialog-content>
   <div class="card bg-white text-dark">
     <div class="card-header">{{info}}</div>
     <div class="card-body">
-      <form #empresaform="ngForm" >
-        <div class="form-group row">
+      <form #empresaform="ngForm" class="needs-validation" novalidate>
+       <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Razon social</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="empresa.razonsocial" name="razonsocial" required maxlength="30" minlength="5" #razonsocial="ngModel">
-            <div class="alert alert-danger" *ngIf="razonsocial.errors && (razonsocial.dirty ||razonsocial.touched)" >
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':razonsocial.errors && (razonsocial.dirty ||razonsocial.touched)}"
+            [(ngModel)]="empresa.razonsocial" name="razonsocial"
+            required maxlength="200" minlength="5" #razonsocial="ngModel">
+            <div class="invalid-feedback" *ngIf="razonsocial.errors && (razonsocial.dirty ||razonsocial.touched)" >
+
               <div *ngIf="razonsocial.errors.required">
                 Este campo es obligatorio
               </div>
@@ -20,8 +26,11 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Nombre Comercial</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="empresa.nomcomercial" name="nombreComercial" required maxlength="30" minlength="5" #nombreComercial="ngModel">
-            <div class="alert alert-danger" *ngIf="nombreComercial.errors && (nombreComercial.dirty || nombreComercial.touched)" >
+            <input type="text" class="form-control" [(ngModel)]="empresa.nomcomercial" name="nombreComercial"
+            [ngClass]="{'is-invalid':nombreComercial.errors && (nombreComercial.dirty || nombreComercial.touched)}"
+            required maxlength="200" minlength="5" #nombreComercial="ngModel">
+            <div  class="invalid-feedback"
+             *ngIf="nombreComercial.errors && (nombreComercial.dirty || nombreComercial.touched)" >
               <div *ngIf="nombreComercial.errors.required">
                 Este campo es obligatorio
               </div>
@@ -34,8 +43,11 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Nombre de la empresa</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="empresa.nomempresa" name="NombreEmpresa" required maxlength="30" minlength="5" #NombreEmpresa="ngModel">
-            <div class="alert alert-danger" *ngIf="NombreEmpresa.errors && (NombreEmpresa.dirty || NombreEmpresa.touched)" >
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':NombreEmpresa.errors && (NombreEmpresa.dirty || NombreEmpresa.touched)}"
+            [(ngModel)]="empresa.nomempresa" name="NombreEmpresa"
+            required maxlength="200" minlength="5" #NombreEmpresa="ngModel">
+            <div  class="invalid-feedback" *ngIf="NombreEmpresa.errors && (NombreEmpresa.dirty || NombreEmpresa.touched)" >
               <div *ngIf="NombreEmpresa.errors.required">
                 Este campo es obligatorio
               </div>
@@ -48,8 +60,11 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">RUC </label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="empresa.codigoruc" name="ruc" required maxlength="11" minlength="11" #ruc="ngModel">
-            <div class="alert alert-danger" *ngIf="ruc.errors && (ruc.dirty || ruc.touched)" >
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':ruc.errors && (ruc.dirty || ruc.touched)}"
+            [(ngModel)]="empresa.codigoruc" name="ruc"
+             required maxlength="11" minlength="11" #ruc="ngModel">
+            <div  class="invalid-feedback" *ngIf="ruc.errors && (ruc.dirty || ruc.touched)" >
               <div *ngIf="ruc.errors.required">
                 Este campo es obligatorio
               </div>
@@ -60,7 +75,7 @@
           </div>
         </div>
         </div>
-        <div class="form-group row">
+        <!--<div class="form-group row">
           <label for="ind_baja" class="col-form-label col-sm-2">Se encuentra activo?</label>
           <div class="col-sm-6">
             <div>
@@ -78,14 +93,15 @@
           <label for="id" class="col-form-label col-sm-2">fecha de baja</label>
           <div class="col-sm-6">
             <input type="date" (ngModelChange)="empresa.fechabaja = $event" class="form-control"
-            min="2000-01-01" max="2030-01-01" [ngModel]="empresa.fechabaja| date:'yyyy-MM-dd'" name="fechaBaja" required #fechabaja="ngModel">
+            min="2000-01-01" max="2030-01-01" [ngModel]="empresa.fechabaja| date:'yyyy-MM-dd'"
+            name="fechaBaja" required #fechabaja="ngModel">
             <div class="alert alert-danger" *ngIf="fechabaja.errors && (fechabaja.dirty || fechabaja.touched)" >
               <div *ngIf="fechabaja.errors.required">
                 Este campo es obligatorio
               </div>
           </div>
           </div>
-        </div>
+        </div>-->
       </form>
     </div>
   </div>
@@ -94,10 +110,11 @@
 <mat-dialog-actions>
   <div class="form-group row">
     <div class="col-sm-6">
-      <button type="button" class="btn btn-light" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="btn btn-light btn-lg"  (click)="cancelar()">Cancelar</button>
     </div>
     <div class="col-sm-6">
-      <button type="button" class="btn btn-primary"  (click)="crearModificarEmpresa()" [disabled]="!empresaform.form.valid"  role="button">{{infoBoton}}</button>
+      <button type="button" class="btn btn-primary btn-lg active" style="margin-left: 10px;" aria-pressed="true"
+       (click)="crearModificarEmpresa()"  [disabled]="!empresaform.form.valid"  role="button">{{infoBoton}}</button>
     </div>
 
   </div>

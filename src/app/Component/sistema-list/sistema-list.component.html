@@ -24,7 +24,11 @@
                       <td> {{ sistema.sistema}}</td>
                       <td> {{ sistema.descripcion}}</td>
                       <td> {{ sistema.numversion}}</td>
-                      <td>{{  sistema.indbaja}}</td>
+                      <td>
+                        <div style="text-align: center;">
+                          <input type="checkbox"  [(ngModel)]="sistema.indbaja" (change)="checkValue(isChecked?true:false,sistema)" name="indbaja">
+                        </div>
+                      </td>
                       <td>
                         <button type="button" name="button" (click)="modificar(sistema)" class="btn btn-primary">Editar</button>
                       </td>
@@ -34,6 +38,9 @@
                   </tr>
               </tbody>
           </table>
+      </div>
+      <div style="margin-left: 30px;">
+        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo"></app-paginador>
       </div>
   </div>
 </div>

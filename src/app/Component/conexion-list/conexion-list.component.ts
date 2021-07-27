@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import{Conexion} from 'src/app/Clases/conexion';
 import { ConexionService} from 'src/app/Servicio/conexion.service';
 import Swal from 'sweetalert2';
@@ -16,18 +16,26 @@ export class ConexionListComponent implements OnInit {
   info:string="Creacion de nuevos datos de conexion "
   conexion:Conexion=new Conexion();
   conexiones:Conexion[]=[]
+  paginador:any
+  tipo:string='Conexion'
   constructor(
     private route: Router,
     private conexionServicio:ConexionService,
+    private rutas:ActivatedRoute,
     private dialog: MatDialog){
 
     }
 
   ngOnInit(): void {
-    this.conexionServicio.getConexion().subscribe((data: Conexion[]) => {
-      console.log(data);
-      this.conexiones = data;
-    });
+    this.rutas.paramMap.subscribe(params=>{
+      console.log(params)
+      var pagina: number = +params.get("page");
+      console.log(pagina)
+    this.conexionServicio.getConexionPagina(pagina).subscribe((response:any)=>{
+      this.conexiones=response.content as Conexion[];
+      this.paginador=response;
+      });
+  })
     ;
 
   }
@@ -54,10 +62,20 @@ export class ConexionListComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Eliminado', '', 'success')
-        this.conexionServicio.eliminarConexion(conexion.id).subscribe(response=>window.location.reload())
+        this.conexionServicio.eliminarConexion(conexion.id).subscribe(response=>
+          Swal.fire('Eliminado', '', 'success').then(result=>{
+            if(result.isConfirmed){
+             window.location.reload()
+            }
+          })
+          )
+
       } else if (result.isDenied) {
-        Swal.fire('No se hizo ningun cambio','','success')
+        Swal.fire('No se hizo ningun cambio','','success').then(result=>{
+          if(result.isConfirmed){
+           window.location.reload()
+          }
+        })
      }
     }
     )}

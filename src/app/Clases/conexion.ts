@@ -1,3 +1,5 @@
+import { Empresa } from "./empresa";
+
 export class Conexion {
   id:number;
   bdservinstancia:string;
@@ -9,4 +11,6 @@ export class Conexion {
   tomcatusuario:string;
   tomcatcontra:string;
   weburl:string;
+  codempresa:number;
+  empresa:Empresa;
 }

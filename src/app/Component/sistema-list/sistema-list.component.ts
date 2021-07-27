@@ -17,18 +17,28 @@ export class SistemaListComponent implements OnInit {
   info:string="Creacion de nuevos datos de sistemas "
   sistema: Sistema=new Sistema();
   sistemas:Sistema[]=[]
+  paginador:any
+  tipo:string='Sistema'
+
   constructor(
     private route: Router,
     private sistemaServicio:SistemaService,
+    private rutas:ActivatedRoute,
     private dialog: MatDialog){
 
     }
 
+
   ngOnInit(): void {
-    this.sistemaServicio.getSistema().subscribe((data: Sistema[]) => {
-      console.log(data);
-      this.sistemas= data;
-    });
+    this.rutas.paramMap.subscribe(params=>{
+      console.log(params)
+      var pagina: number = +params.get("page");
+      console.log(pagina)
+    this.sistemaServicio.getSistemaPagina(pagina).subscribe((response:any)=>{
+      this.sistemas=response.content as Sistema[];
+      this.paginador=response;
+      });
+  })
     ;
 
   }
@@ -61,10 +71,21 @@ eliminar(sistema:Sistema){
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
-      Swal.fire('Eliminado', '', 'success')
-      this.sistemaServicio.eliminarSistema(sistema.id).subscribe(response=>window.location.reload())
+      this.sistemaServicio.eliminarSistema(sistema.id).subscribe(response=>
+        Swal.fire('Eliminado', '', 'success').then(result=>{
+          if(result.isConfirmed){
+           window.location.reload()
+          }
+        })
+        )
+
+
     } else if (result.isDenied) {
-      Swal.fire('No se hizo ningun cambio','','success')
+      Swal.fire('No se hizo ningun cambio','','success').then(result=>{
+        if(result.isConfirmed){
+         window.location.reload()
+        }
+      })
    }
   }
   )}
@@ -80,6 +101,36 @@ eliminar(sistema:Sistema){
     const dialogRef = this.dialog.open(PopUpSistemaComponent, dialogConfig);
 
 
+  }
+  checkValue(event:any,sistema:Sistema){
+    Swal.fire({
+      title: 'Estas seguro de cambiar el estado? ',
+      html:
+    `Se cambiara el estado al sistema <b>${sistema.sistema}</b> `+
+    '<b>!</b>',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Aceptar`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        this.sistemaServicio.modificarSistema(sistema).subscribe(response=>{
+           Swal.fire('Cambio realizado con Exito!', '', 'success').then(result=>{
+             if(result.isConfirmed){
+              window.location.reload()
+             }
+           })
+          })
+      } else if (result.isDenied) {
+        Swal.fire('No se hizo ningun cambio','','success').then(result=>{
+          if(result.isConfirmed){
+           window.location.reload()
+          }
+        })
+     }
+    })
   }
 
 

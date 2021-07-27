@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Conexion } from 'src/app/Clases/conexion';
 import{Contrato} from 'src/app/Clases/contrato';
 import { Empresa } from 'src/app/Clases/empresa';
@@ -20,21 +20,29 @@ export class ContratoListComponent implements OnInit {
   empresa:Empresa;
   sistema:Sistema;
   conexion:Conexion;
-
   contrato:Contrato=new Contrato();
   contratos:Contrato[]=[]
+  paginador:any
+  tipo:string='Contrato'
   constructor(
     private route: Router,
     private contratoServicio:ContratoService,
+    private rutas:ActivatedRoute,
     private dialog: MatDialog){
 
     }
 
   ngOnInit(): void {
-    this.contratoServicio.getContrato().subscribe((data: Contrato[]) => {
-      console.log(data);
-      this.contratos = data;
-    });
+    this.rutas.paramMap.subscribe(params=>{
+      console.log(params)
+      var pagina: number = +params.get("page");
+      console.log(pagina)
+    this.contratoServicio.getContratoPagina(pagina).subscribe((response:any)=>{
+      this.contratos=response.content as Contrato[];
+      this.paginador=response;
+      });
+  })
+
 
   }
 
@@ -60,10 +68,19 @@ export class ContratoListComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Eliminado', '', 'success')
-        this.contratoServicio.eliminarContrato(contrato.id).subscribe(response=>window.location.reload())
+        this.contratoServicio.eliminarContrato(contrato.id).subscribe(response=>
+          Swal.fire('Eliminado', '', 'success').then(result=>{
+            if(result.isConfirmed){
+             window.location.reload()
+            }
+          })
+        )
       } else if (result.isDenied) {
-        Swal.fire('No se hizo ningun cambio','','success')
+        Swal.fire('No se hizo ningun cambio','','success').then(result=>{
+          if(result.isConfirmed){
+           window.location.reload()
+          }
+        })
      }
     }
     )}
@@ -79,6 +96,38 @@ export class ContratoListComponent implements OnInit {
       const dialogRef = this.dialog.open(PopUpContratoComponent, dialogConfig);
 
 
+
+    }
+    checkValue(event:any,contrato:Contrato){
+      Swal.fire({
+        title: 'Estas seguro de cambiar el estado? ',
+        html:
+      `Se cambiara el contrato de ID: <b>${contrato.id}</b> `+
+      '<b>!</b>',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Aceptar`,
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+
+          this.contratoServicio.modificarContrato(contrato).subscribe(response=>{
+             Swal.fire('Cambio realizado con Exito!', '', 'success').then(result=>{
+               if(result.isConfirmed){
+                window.location.reload()
+               }
+             })
+            })
+        } else if (result.isDenied) {
+          Swal.fire('No se hizo ningun cambio','','success').then(result=>{
+            if(result.isConfirmed){
+             window.location.reload()
+            }
+          })
+
+       }
+      })
     }
 
 }

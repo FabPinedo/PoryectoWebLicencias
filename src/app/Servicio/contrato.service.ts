@@ -16,6 +16,10 @@ export class ContratoService {
     const baseUrl1=this.baseUrl+"/find/listado"
     return this.http.get<Contrato[]>(`${baseUrl1}`);
   }
+  getContratoPagina(page:number): Observable<Contrato[]>{
+    const baseUrl1=this.baseUrl+"/find/page";
+    return this.http.get<Contrato[]>(`${baseUrl1}/${page}`);
+  }
 
 
   crearContrato(contrato:Contrato): Observable<Contrato>{

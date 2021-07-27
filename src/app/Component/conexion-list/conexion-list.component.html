@@ -20,6 +20,7 @@
                   <th> TOMCAT usuario </th>
                   <th> TOMCAT contraseña </th>
                   <th> Web Url </th>
+                  <th> Nombre de la empresa Asociada</th>
                   <th> Editar </th>
                   <th> Borrar </th>
               </thead>
@@ -35,6 +36,7 @@
                       <td> {{ conexion.tomcatusuario}}</td>
                       <td> {{ conexion.tomcatcontra}}</td>
                       <td> {{ conexion.weburl}}</td>
+                      <td> {{ conexion.empresa.nomempresa}}</td>
                       <td>
                         <button type="button" name="button" (click)="modificar(conexion)" class="btn btn-primary">Editar</button>
                       </td>
@@ -44,6 +46,9 @@
                   </tr>
               </tbody>
           </table>
+      </div>
+      <div style="margin-left: 30px;">
+        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo" ></app-paginador>
       </div>
   </div>
 </div>

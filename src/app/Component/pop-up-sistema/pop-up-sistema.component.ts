@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class PopUpSistemaComponent implements OnInit {
   info:string="Creacion de nuevos datos de Sistema "
   sistema:Sistema=new Sistema();
-  infoBoton="Crear Datos"
+  infoBoton="Crear"
   constructor(
     private route: Router,
     private sistemaServicio:SistemaService,
@@ -22,7 +22,7 @@ export class PopUpSistemaComponent implements OnInit {
     private dialogref:MatDialogRef<PopUpSistemaComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: Sistema){
       if(data!=null){
-        this.infoBoton="Modificar Datos";
+        this.infoBoton="Modificar";
       sistemaServicio.obtenerSistema(data.id).subscribe((Sistema)=> this.sistema=Sistema);
     }
     }
@@ -32,23 +32,25 @@ export class PopUpSistemaComponent implements OnInit {
   }
 
   crearModificarSistema(){
-    if(this.infoBoton=="Crear Datos"){
+    if(this.infoBoton=="Crear"){
       if(this.sistema.indbaja!=null){
       console.log(this.sistema )
 
           this.sistemaServicio.crearSistema(this.sistema).subscribe(
             response=>{
 
-            Swal.fire('Nueva Sistema',`Nuevo Sistema: ${this.sistema.sistema} creado con exito `, 'success')
-          }
-          )
-          this.dialogref.close();
+            Swal.fire('Nueva Sistema',`Nuevo Sistema: ${this.sistema.sistema} creado con exito `, 'success').then(result=>{
+              if(result.isConfirmed){
+                this.dialogref.close();
+                window.location.reload();
+              }
+            })
+          })
 
-          window.location.reload();
         }else{
           Swal.fire('Seleccione alguna de las opciones para el estado de Sistema',"", 'error')
         }
-    }else if(this.infoBoton="Modificar Datos"){
+    }else if(this.infoBoton="Modificar"){
       if(this.sistema.indbaja!=null){
       Swal.fire({
         title: `Se hara el siguiente cambio de datos al sistema: ${this.sistema.sistema}`,
@@ -61,11 +63,20 @@ export class PopUpSistemaComponent implements OnInit {
         if (result.isConfirmed) {
           this.sistemaServicio.modificarSistema(this.sistema).subscribe(
             response=>{
-          Swal.fire('Se realizaron los cambios!', '', 'success')})
-          this.dialogref.close();
-          window.location.reload();
+          Swal.fire('Se realizaron los cambios!', '', 'success').then(result=>{
+            if(result.isConfirmed){
+              this.dialogref.close();
+              window.location.reload();
+            }
+          })
+        })
+
         } else if (result.isDenied) {
-          Swal.fire('No se produjo ningun cambio', '', 'info')
+          Swal.fire('No se produjo ningun cambio', '', 'info').then(result=>{
+            if(result.isConfirmed){
+             window.location.reload()
+            }
+          })
         }
       })
     }}else{

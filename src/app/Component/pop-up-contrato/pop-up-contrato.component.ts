@@ -23,7 +23,7 @@ export class PopUpContratoComponent implements OnInit {
   empresas:Empresa[]=[];
   sistemas:Sistema[]=[];
   conexiones:Conexion[]=[];
-  infoBoton="Crear Datos"
+  infoBoton="Crear"
   constructor(
     private route: Router,
     private contratoService:ContratoService,
@@ -34,7 +34,7 @@ export class PopUpContratoComponent implements OnInit {
     private dialogref:MatDialogRef<PopUpContratoComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: Contrato){
       if(data!=null){
-        this.infoBoton="Modificar Datos";
+        this.infoBoton="Modificar";
       contratoService.obtenerContrato(data.id).subscribe((Contrato)=> this.contrato=Contrato);
     }
     }
@@ -55,7 +55,7 @@ export class PopUpContratoComponent implements OnInit {
   }
 
   crearModificarcontrato(){
-    if(this.infoBoton=="Crear Datos"){
+    if(this.infoBoton=="Crear"){
       if(this.contrato.estado!=null){
         if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
           if(parseInt(this.contrato.token)>100000){
@@ -63,9 +63,13 @@ export class PopUpContratoComponent implements OnInit {
             this.contratoService.crearContrato(this.contrato).subscribe(
             response=>{
             console.log(this.contrato)
-            Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success')
-            this.dialogref.close()
-            window.location.reload()
+            Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success').then(result=>{
+              if(result.isConfirmed){
+                this.dialogref.close();
+                window.location.reload();
+              }
+            })
+
             })
           }else{
             Swal.fire('El token no es valido',"", 'error')
@@ -76,7 +80,7 @@ export class PopUpContratoComponent implements OnInit {
     }else{
       Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
     }
-    }else if(this.infoBoton="Modificar Datos"){
+    }else if(this.infoBoton="Modificar"){
       if(this.contrato.estado!=null){
         if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
             Swal.fire({
@@ -90,11 +94,20 @@ export class PopUpContratoComponent implements OnInit {
             if (result.isConfirmed) {
               this.contratoService.modificarContrato(this.contrato).subscribe(
                 response=>{
-              Swal.fire('Se realizaron los cambios!', '', 'success')})
-              this.dialogref.close();
-              window.location.reload();
+              Swal.fire('Se realizaron los cambios!', '', 'success').then(result=>{
+                if(result.isConfirmed){
+                  this.dialogref.close();
+                  window.location.reload();
+                }
+              })
+            })
+
             }else if (result.isDenied) {
-              Swal.fire('No se produjo ningun cambio', '', 'info')
+              Swal.fire('No se produjo ningun cambio', '', 'info').then(result=>{
+                if(result.isConfirmed){
+                  window.location.reload();
+                }
+              })
             }
             })
         }else{

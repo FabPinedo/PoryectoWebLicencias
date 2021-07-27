@@ -16,6 +16,10 @@ export class SistemaService {
     const baseUrl1=this.baseUrl+"/find/listado"
     return this.http.get<Sistema[]>(`${baseUrl1}`);
   }
+  getSistemaPagina(page:number): Observable<Sistema[]>{
+    const baseUrl1=this.baseUrl+"/find/page";
+    return this.http.get<Sistema[]>(`${baseUrl1}/${page}`);
+  }
 
 
   crearSistema(sistema:Sistema): Observable<Sistema>{

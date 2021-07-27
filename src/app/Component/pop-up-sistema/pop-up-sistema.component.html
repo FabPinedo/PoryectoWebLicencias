@@ -7,9 +7,11 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Nombre del sistema</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="sistema.sistema" name="nombreSistema"
-            required maxlength="20" minlength="5" #nombresistema="ngModel">
-            <div class="alert alert-danger" *ngIf="nombresistema.errors && (nombresistema.dirty ||nombresistema.touched)" >
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':nombresistema.errors && (nombresistema.dirty ||nombresistema.touched)}"
+            [(ngModel)]="sistema.sistema" name="nombreSistema"
+            required maxlength="50" minlength="5" #nombresistema="ngModel">
+            <div class="invalid-feedback" *ngIf="nombresistema.errors && (nombresistema.dirty ||nombresistema.touched)" >
               <div *ngIf="nombresistema.errors.required">
                 Este campo es obligatorio
               </div>
@@ -22,9 +24,11 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Descripcion</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="sistema.descripcion" name="descripcion"
-            required maxlength="20" minlength="5" #descripcion="ngModel">
-            <div class="alert alert-danger" *ngIf="descripcion.errors && (descripcion.dirty ||descripcion.touched)" >
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':descripcion.errors && (descripcion.dirty ||descripcion.touched)}"
+            [(ngModel)]="sistema.descripcion" name="descripcion"
+            required maxlength="200" minlength="5" #descripcion="ngModel">
+            <div class="invalid-feedback" *ngIf="descripcion.errors && (descripcion.dirty ||descripcion.touched)" >
               <div *ngIf="descripcion.errors.required">
                 Este campo es obligatorio
               </div>
@@ -37,18 +41,21 @@
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Numero de Version </label>
           <div class="col-sm-6">
-            <input type="int" class="form-control" [(ngModel)]="sistema.numversion" name="numVersion"
-            required maxlength="20" minlength="5" #numVersion="ngModel">
-            <div class="alert alert-danger" *ngIf="numVersion.errors && (numVersion.dirty ||numVersion.touched)" >
+            <input type="int" class="form-control"
+            [ngClass]="{'is-invalid':numVersion.errors && (numVersion.dirty ||numVersion.touched)}"
+            [(ngModel)]="sistema.numversion" name="numVersion"
+            required maxlength="20" minlength="1" #numVersion="ngModel">
+            <div class="invalid-feedback" *ngIf="numVersion.errors && (numVersion.dirty ||numVersion.touched)" >
               <div *ngIf="numVersion.errors.required">
                 Este campo es obligatorio
               </div>
               <div *ngIf="numVersion.errors.minlength">
-                Debe ser mayor de 5 caracteres
+                Debe ser mayor de 1 caracteres
               </div>
             </div>
           </div>
         </div>
+        <!--
         <div class="form-group row">
           <label for="ind_baja" class="col-form-label col-sm-2">Se encuentra activo?</label>
           <div class="col-sm-6">
@@ -63,6 +70,7 @@
 
           </div>
         </div>
+      -->
 
 
       </form>
@@ -73,10 +81,12 @@
 <mat-dialog-actions>
   <div class="form-group row">
     <div class="col-sm-6">
-      <button type="button" class="btn btn-light" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="btn btn-light btn-lg" (click)="cancelar()">Cancelar</button>
     </div>
     <div class="col-sm-6">
-      <button type="button" class="btn btn-primary"  (click)="crearModificarSistema()" role="button" [disabled]="!sistemaform.form.valid" >{{infoBoton}} </button>
+      <button type="button" class="btn btn-primary btn-lg active" style="margin-left: 10px;" aria-pressed="true"
+        (click)="crearModificarSistema()" role="button"
+      [disabled]="!sistemaform.form.valid" >{{infoBoton}} </button>
     </div>
 
   </div>

@@ -32,9 +32,14 @@
                     <td> {{ contrato.sistema.sistema }}</td>
                     <td> {{ contrato.codconexion }}</td>
                     <td> {{ contrato.conexion.bdservinstancia}}</td>
-                    <td> {{ contrato.fechainicontrato }}</td>
-                    <td> {{ contrato.fechafincontrato }}</td>
-                    <td> {{ contrato.estado }}</td>
+                    <td> {{ contrato.fechainicontrato|date:'dd/MM/yyyy'}}</td>
+                    <td> {{ contrato.fechafincontrato|date:'dd/MM/yyyy' }}</td>
+                    <td>
+                      <div style="text-align: center;">
+                        <input type="checkbox"  [(ngModel)]="contrato.estado" (change)="checkValue(isChecked?true:false,contrato)" name="estado">
+
+                      </div>
+                    </td>
                     <td> {{ contrato.token }}</td>
                     <td>
                       <button type="button" name="button" (click)="modificar(contrato)" class="btn btn-primary">Editar</button>
@@ -45,6 +50,9 @@
                   </tr>
               </tbody>
           </table>
+      </div>
+      <div style="margin-left: 30px;">
+        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo"></app-paginador>
       </div>
   </div>
 </div>
