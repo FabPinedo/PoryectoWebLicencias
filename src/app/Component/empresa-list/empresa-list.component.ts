@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CheckboxControlValueAccessor } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,8 +18,15 @@ export class EmpresaListComponent implements OnInit {
   info:string="Creacion de nuevos datos de empresa "
   empresa:Empresa=new Empresa();
   empresas:Empresa[]=[]
+  listaOriginal:Empresa[]=[]
+  nroTotal:number
   paginador:any
-  tipo:string='Empresa'
+  opcion:string
+  buscador:string
+  ruc:string
+  razon:string
+  tipo:string
+  activado:boolean=false
   constructor(
     private route: Router,
     private rutas:ActivatedRoute,
@@ -29,23 +36,71 @@ export class EmpresaListComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    /*this.empresaservicio.getEmpresa().subscribe((data: Empresa[]) => {
-      console.log(data);
-      this.empresas = data;
-    });*/
     this.rutas.paramMap.subscribe(params=>{
-      console.log(params)
+      this.paginador=null
+      this.tipo=null
       var pagina: number = +params.get("page");
-      console.log(pagina)
-      this.empresaservicio.getEmpresaPagina(pagina).subscribe((response:any)=>{
-      this.empresas=response.content as Empresa[];
-      this.paginador=response;
+      if(params.get("ruc")!=null){
+        const rucCode=params.get("ruc")
+        this.tipo="Empresa/ruc/"+rucCode
+        this.empresaservicio.getEmpresaPaginaByRUC(pagina,rucCode).subscribe((response:any)=>{
+          this.empresas=response.content as Empresa[];
+          if(this.empresas.length==0){
+            Swal.fire('No se encontro ninguna coincidencia','Verifique los datos ingresados','info').then(result=>{
+              if(result.isConfirmed){
+                this.route.navigate(["Empresa/estado/Activos",0])
+              }
+            })
+
+          }
+          this.paginador=response;
+          this.nroTotal=response.totalElements
+        })
+      }else if(params.get("razon")!=null){
+        const razon=params.get("razon")
+        this.tipo="Empresa/razonsocial/"+razon
+        this.empresaservicio.getEmpresaPaginaByRazonSocial(pagina,razon).subscribe((response:any)=>{
+          this.empresas=response.content as Empresa[];
+          this.paginador=response;
+          this.nroTotal=response.totalElements
+          if(this.empresas.length==0){
+            Swal.fire('No se encontro ninguna coincidencia','Verifique los datos ingresados','info').then(result=>{
+              if(result.isConfirmed){
+                this.route.navigate(["Empresa/estado/Activos",0])
+              }
+            })
+
+          }
+        })
+      }else if(params.get("estado")!=null){
+        const estado=params.get("estado")
+        this.tipo='Empresa/estado/'+estado
+        this.activado=false
+        this.empresaservicio.getEmpresaPaginaByestado(pagina).subscribe((response:any)=>{
+        this.empresas=response.content as Empresa[];
+        this.paginador=response
+        this.nroTotal=response.totalElements
+
+      })
+    }else{
+        /*if(this.activado=="Mostrar Inactivos"){
+          this.activado= "Ocultar Inactivos"
+        }*/
+        this.activado=true
+        this.tipo='Empresa/page'
+        this.empresaservicio.getEmpresaPagina(pagina).subscribe((response:any)=>{
+        this.empresas=response.content as Empresa[];
+        this.paginador=response;
+        this.nroTotal=response.totalElements
       });
+
+      }
 
     })
 
 
   }
+
 
   AbrirPopUp(){
       const dialogConfig = new MatDialogConfig();
@@ -138,11 +193,38 @@ export class EmpresaListComponent implements OnInit {
              window.location.reload()
             }
           })
-         
+
        }
       })
     }
+    MostrarInactivos(event:any){
+
+      if(this.activado==false){
+        this.route.navigate(['/Empresa/page/',0])
+        console.log(this.activado)
+      }else if(this.activado==true){
+        this.route.navigate(['/Empresa/estado/',"all",0])
+        console.log(this.activado)
+      }
+    //this.activado=="Mostrar Inactivos"
     }
+    Buscar(){
+      if(this.opcion=="ruc"){
+        this.route.navigate(['/Empresa/ruc',this.buscador,0])
+      }else if(this.opcion=="razonsocial"){
+        this.route.navigate(['/Empresa/razonsocial',this.buscador,0])
+      }else{
+        Swal.fire('Por favor escoger una de las opciones de busqueda', 'Escoger entre busqueda por ruc o razon social', 'error')
+
+      }
+      /*this.empresaservicio.getEmpresaPaginaByRUC(0,this.buscador).subscribe((response:any)=>{
+        this.empresas=response.content as Empresa[];
+        this.paginador=response;
+      })*/
+    }
+
+    }
+
 
 
 

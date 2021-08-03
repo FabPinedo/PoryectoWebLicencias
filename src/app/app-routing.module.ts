@@ -8,9 +8,21 @@ import { SistemaListComponent } from './Component/sistema-list/sistema-list.comp
 const routes: Routes = [
 
   { path: 'Empresa/page/:page', component: EmpresaListComponent},
+  { path: 'Empresa/ruc/:ruc/:page', component: EmpresaListComponent},
+  { path: 'Empresa/razonsocial/:razon/:page', component: EmpresaListComponent},
+  { path: 'Empresa/estado/:estado/:page', component: EmpresaListComponent},
+
   { path: 'Contrato/page/:page', component: ContratoListComponent},
+  { path: 'Contrato/estado/:estado/:page', component: ContratoListComponent},
+  { path: 'Contrato/ruc/:ruc/:page', component: ContratoListComponent},
+  { path: 'Contrato/razonsocial/:razon/:page', component: ContratoListComponent},
+
   { path: 'Sistema/page/:page', component: SistemaListComponent},
-  { path: 'Conexion/page/:page', component: ConexionListComponent}
+  { path: 'Sistema/estado/:estado/:page', component: SistemaListComponent},
+
+  { path: 'Conexion/page/:page', component: ConexionListComponent},
+  { path: 'Conexion/ruc/:ruc/:page', component: ConexionListComponent},
+  { path: 'Conexion/razonsocial/:razon/:page', component: ConexionListComponent},
 /*
   { path: '/Empresa', component: EmpresaListComponent},
   { path: '/Contrato', component: ContratoListComponent},

@@ -20,10 +20,47 @@ export class EmpresaService {
     const baseUrl1=this.baseUrl+"/find/listado";
     return this.http.get<Empresa[]>(`${baseUrl1}`);
   }
+  getEmpresaListadoActivos(): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/listado/activos";
+    return this.http.get<Empresa[]>(`${baseUrl1}`);
+  }
   getEmpresaPagina(page:number): Observable<Empresa[]>{
     const baseUrl1=this.baseUrl+"/find/page";
     return this.http.get<Empresa[]>(`${baseUrl1}/${page}`);
   }
+  getEmpresaByRUC(ruc:string): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/listado/ruc";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${ruc}`);
+  }
+  getEmpresaByRazon(razon:string): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/listado/razon";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${razon}`);
+  }
+  getEmpresaPaginaByRUC(page:number,ruc:string): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/ruc";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${ruc}/${page}`).pipe(
+      catchError(e=>{
+      console.log(e)
+      Swal.fire(e.error.Mensaje,e.error.error,"error" );
+      return throwError(e)
+    })
+    )
+  }
+  getEmpresaPaginaByRazonSocial(page:number,razon:string): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/razonsocial";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${razon}/${page}`).pipe(
+      catchError(e=>{
+      console.log(e)
+      Swal.fire(e.error.Mensaje,e.error.error,"error" );
+      return throwError(e)
+    })
+    )
+  }
+  getEmpresaPaginaByestado(page:number): Observable<Empresa[]>{
+    const baseUrl1=this.baseUrl+"/find/estado/page";
+    return this.http.get<Empresa[]>(`${baseUrl1}/${page}`);
+  }
+
 
 
   crearEmpresa(empresa:Empresa): Observable<Empresa>{

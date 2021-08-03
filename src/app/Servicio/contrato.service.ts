@@ -20,6 +20,20 @@ export class ContratoService {
     const baseUrl1=this.baseUrl+"/find/page";
     return this.http.get<Contrato[]>(`${baseUrl1}/${page}`);
   }
+  getContratoPaginaByestado(page:number): Observable<Contrato[]>{
+    const baseUrl1=this.baseUrl+"/find/estado/page";
+    return this.http.get<Contrato[]>(`${baseUrl1}/${page}`);
+  }
+  
+  getContratoPaginaByRUC(page:number,ruc:string): Observable<Contrato[]>{
+    const baseUrl1=this.baseUrl+"/find/ruc";
+    return this.http.get<Contrato[]>(`${baseUrl1}/${ruc}/${page}`);
+  }
+
+  getContratoPaginaByRazonSocial(page:number,razon:string): Observable<Contrato[]>{
+    const baseUrl1=this.baseUrl+"/find/razonsocial";
+    return this.http.get<Contrato[]>(`${baseUrl1}/${razon}/${page}`);
+  }
 
 
   crearContrato(contrato:Contrato): Observable<Contrato>{

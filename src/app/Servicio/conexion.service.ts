@@ -16,9 +16,22 @@ export class ConexionService {
     const baseUrl1=this.baseUrl+"/find/listado"
     return this.http.get<Conexion[]>(`${baseUrl1}`);
   }
+  getConexionbyIDEmpresa(id:number): Observable<Conexion[]>{
+    const baseUrl1=this.baseUrl+"/find/listado/codEmpresa"
+    return this.http.get<Conexion[]>(`${baseUrl1}/${id}`);
+  }
   getConexionPagina(page:number): Observable<Conexion[]>{
     const baseUrl1=this.baseUrl+"/find/page";
     return this.http.get<Conexion[]>(`${baseUrl1}/${page}`);
+  }
+  getConexionPaginaByRUC(page:number,ruc:string): Observable<Conexion[]>{
+    const baseUrl1=this.baseUrl+"/find/ruc";
+    return this.http.get<Conexion[]>(`${baseUrl1}/${ruc}/${page}`);
+  }
+
+  getConexionPaginaByRazonSocial(page:number,razon:string): Observable<Conexion[]>{
+    const baseUrl1=this.baseUrl+"/find/razonsocial";
+    return this.http.get<Conexion[]>(`${baseUrl1}/${razon}/${page}`);
   }
 
 

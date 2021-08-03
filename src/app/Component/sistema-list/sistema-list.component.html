@@ -39,8 +39,24 @@
               </tbody>
           </table>
       </div>
-      <div style="margin-left: 30px;">
-        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo"></app-paginador>
+      <div style="display: flex;" >
+        <div style="margin-left: 30px;">
+          <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo" >
+          </app-paginador>
+        </div>
+        <div  style="position:absolute; right:60px; width: 35%;">
+
+          <div style="float: left;">
+            <span >Mostrar registros Inactivos   </span>
+            <input type="checkbox" [ngModel]="activado"
+            (change)="MostrarInactivos($event)" name="MostrarInactivos">
+            <!--<button type="button"
+             name="button" (click)="MostrarInactivos()" class="btn btn-primary">{{activado}}</button>-->
+          </div>
+           <span  style="float: right;" >Total de registros: {{nroTotal}}</span>
+
+        </div>
+
       </div>
   </div>
 </div>

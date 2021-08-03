@@ -163,7 +163,7 @@
             <select class="form-select" aria-label="Default select example"
             [ngClass]="{'is-invalid':codEmpresa.errors && (codEmpresa.dirty ||codEmpresa.touched)}"
             [(ngModel)]="conexion.codempresa"
-             name="codsistema" required  #codEmpresa="ngModel">
+             name="codsistema" required  #codEmpresa="ngModel" disabled>
              <option value="">Selecciona una opción</option>
               <option *ngFor = "let empresa of empresas"  [value]="empresa.id">  {{ empresa.nomempresa }}</option>
             </select>
@@ -173,12 +173,13 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <button type="button" class="btn btn-default">
-              <i class="bi bi-search"></i>
-              
-            </button>
+          <div  style="float: right; width: 20%; " >
+            <button type="button" role="button" class="btn btn-primary active" aria-pressed="true" (click)="AbrirPopUp(BUSCADOR)">
+              <i class="fas fa-search"></i>
+               </button>
           </div>
+
+
         </div>
       </form>
     </div>
@@ -198,3 +199,68 @@
 
   </div>
 </mat-dialog-actions>
+
+<ng-template #BUSCADOR>
+  <mat-dialog-content>
+    <div class ="container" >
+        <div class = "card" >
+          <h3 class="text-center">Escoja una empresa</h3>
+            <div class = "card-body">
+              <div class="form-group row">
+                <div>
+                  <button style="float: left;" type="button" role="button" class="btn btn-primary" (click)="resetear()">
+                    Restear listado
+                </button>
+                  <div class="input-group" style="display: flex;
+                  align-items: center;
+                  justify-content: center;"  >
+                  <div style="width:100px;">
+                    <select  class="form-select" [(ngModel)]="opcion">
+                      <option value="ruc"> RUC</option>
+                      <option value="razonsocial"> Razon Social</option>
+                    </select>
+                  </div>
+
+                    <div class="form-outline">
+                      <input id="search-focus" type="text" [(ngModel)]="buscador" placeholder="Buscar" class="form-control" name="buscador" />
+                    </div>
+                    <button type="button" role="button" class="btn btn-primary" (click)="Buscar()">
+                      <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+              </div>
+                <table style="display: inline-block; align-items: center;" class="table table-striped">
+                    <thead style="text-align: center; ">
+                        <th> Codigo de empresa </th>
+                        <th> Razon social </th>
+                        <th> RUC </th>
+                        <th> Seleccionar</th>
+                    </thead>
+                    <tbody style="text-align: center; ">
+                        <tr *ngFor = "let empresa of empresas">
+                            <td> {{ empresa.id}}</td>
+                            <td> {{ empresa.razonsocial}}</td>
+                            <td>{{ empresa.codigoruc }}</td>
+                            <td>
+                              <button type="button"  name="button" (click)="seleccionar(empresa)" class="btn btn-primary">Seleccionar</button>
+                            </td>
+                        </tr>
+                        <div style="display: flex;
+                        align-items: center;
+                        justify-content: center;" *ngIf="vacio"> No se encontro coincidencias en su busqueda </div>
+                    </tbody>
+                </table>
+              </div>
+              <div style="margin-left: 30px;">
+                <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo"></app-paginador>
+              </div>
+
+        </div>
+      </div>
+
+    </mat-dialog-content>
+
+</ng-template>
+
+

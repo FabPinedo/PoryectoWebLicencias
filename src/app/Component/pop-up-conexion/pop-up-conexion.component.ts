@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Conexion } from 'src/app/Clases/conexion';
 import { Empresa } from 'src/app/Clases/empresa';
@@ -9,6 +9,7 @@ import { EmpresaService } from 'src/app/Servicio/empresa.service';
 
 import { SistemaService } from 'src/app/Servicio/sistema.service';
 import Swal from 'sweetalert2';
+import { BusquedaComponent } from '../busqueda/busqueda.component';
 
 @Component({
   selector: 'app-pop-up-conexion',
@@ -19,12 +20,16 @@ export class PopUpConexionComponent implements OnInit {
   info:string="Creacion de nuevos datos de conexion "
   conexion:Conexion= new Conexion();
   empresas:Empresa[]=[];
+  opcion:string
+  buscador:string
   infoBoton="Crear"
+  vacio:boolean=false
   constructor(
     private route: Router,
     private conexionService:ConexionService,
     private empresaservicio:EmpresaService,
     private dialog: MatDialog,
+    private dialog2:MatDialogRef<any>,
     private dialogref:MatDialogRef<PopUpConexionComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: Conexion){
       if(data!=null){
@@ -33,7 +38,7 @@ export class PopUpConexionComponent implements OnInit {
       }
     }
   ngOnInit(): void {
-    this.empresaservicio.getEmpresa().subscribe((data: Empresa[]) => {
+    this.empresaservicio.getEmpresaListadoActivos().subscribe((data: Empresa[]) => {
       console.log(data);
       this.empresas = data;
     });
@@ -86,16 +91,63 @@ export class PopUpConexionComponent implements OnInit {
   }else{
     Swal.fire('Puerto Invalido', '', 'error')
   }
-
-
   }
-
-
-
-
-
   }
+  AbrirPopUp(popup){
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width="800px";
+    this.dialog2=this.dialog.open(popup,dialogConfig)
+
+
+    /*
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width="1000px";
+    dialogConfig.data=this.conexion
+
+    const dialogRef = this.dialog.open(BusquedaComponent, dialogConfig);*/
+}
   cancelar(){
     this.dialogref.close();
+  }
+  Buscar(){
+    if(this.opcion=="ruc"){
+      this.empresas=null
+      this.empresaservicio.getEmpresaByRUC(this.buscador).subscribe((data:Empresa[])=>{
+        this.empresas=data
+        if(this.empresas.length==0){
+          this.vacio=true
+        }
+      })
+    }else if (this.opcion=="razonsocial"){
+      this.empresas=null
+      this.empresaservicio.getEmpresaByRazon(this.buscador).subscribe((data:Empresa[])=>{
+        this.empresas=data
+        if(this.empresas.length==0){
+          this.vacio=true
+        }
+      })
+    }else{
+      Swal.fire('Por favor escoger una de las opciones de busqueda', 'Escoger entre busqueda por ruc o razon social', 'error')
+
+    }
+
+  }
+  seleccionar(empresa:Empresa){
+
+    this.conexion.codempresa=empresa.id;
+    this.dialog2.close();
+
+  }
+  resetear(){
+    this.empresaservicio.getEmpresaListadoActivos().subscribe((data: Empresa[]) => {
+      console.log(data);
+      this.empresas = data;
+    });
   }
 }

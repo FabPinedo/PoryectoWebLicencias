@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'frontend-admin-licencias';
   public auth: boolean = true;
   public usuarioPanel: string;
-
+  estado:string="Activos"
 
   logout(){
     alert("Saliste del sistema - Prueba")

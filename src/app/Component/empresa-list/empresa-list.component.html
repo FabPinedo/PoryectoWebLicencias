@@ -3,8 +3,29 @@
 
       <h3 class="text-center"> Listado de empresas</h3>
       <div class = "card-body">
+
         <div class="form-group row">
-          <div class="col-sm-6">
+          <div>
+            <div class="input-group" style="display: flex;
+            align-items: center;
+            justify-content: center;"  >
+            <div style="width:100px;">
+              <select  class="form-select" [(ngModel)]="opcion">
+                <option value="ruc"> RUC</option>
+                <option value="razonsocial"> Razon Social</option>
+              </select>
+            </div>
+
+              <div class="form-outline">
+                <input id="search-focus" type="text" [(ngModel)]="buscador" placeholder="Buscar" class="form-control" name="buscador" />
+              </div>
+              <button type="button" role="button" class="btn btn-primary" (click)="Buscar()">
+                <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-sm-6" >
             <button class="btn btn-primary" (click)="AbrirPopUp()" role="button"> {{info}}</button>
           </div>
         </div>
@@ -44,9 +65,28 @@
           </table>
 
       </div>
-      <div style="margin-left: 30px;">
-        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo"></app-paginador>
-      </div>
+      <div  style="display: flex;">
+
+                  <div style="margin-left: 30px;">
+                        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo" >
+                        </app-paginador>
+                      </div>
+                      <div  style="position:absolute; right:60px; width: 35%;">
+
+                        <div style="float: left;">
+                          <span >Mostrar registros Inactivos   </span>
+                          <input type="checkbox" [ngModel]="activado"
+                          (change)="MostrarInactivos($event)" name="MostrarInactivos">
+                          <!--<button type="button"
+                          name="button" (click)="MostrarInactivos()" class="btn btn-primary">{{activado}}</button>-->
+                        </div>
+                        <span  style="float: right;" >Total de registros: {{nroTotal}}</span>
+
+                      </div>
+
+
+
+              </div>
 
   </div>
 </div>

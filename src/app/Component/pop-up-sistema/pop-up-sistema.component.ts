@@ -33,9 +33,9 @@ export class PopUpSistemaComponent implements OnInit {
 
   crearModificarSistema(){
     if(this.infoBoton=="Crear"){
-      if(this.sistema.indbaja!=null){
-      console.log(this.sistema )
 
+      console.log(this.sistema)
+      this.sistema.indbaja=false
           this.sistemaServicio.crearSistema(this.sistema).subscribe(
             response=>{
 
@@ -46,12 +46,7 @@ export class PopUpSistemaComponent implements OnInit {
               }
             })
           })
-
-        }else{
-          Swal.fire('Seleccione alguna de las opciones para el estado de Sistema',"", 'error')
-        }
     }else if(this.infoBoton="Modificar"){
-      if(this.sistema.indbaja!=null){
       Swal.fire({
         title: `Se hara el siguiente cambio de datos al sistema: ${this.sistema.sistema}`,
         showDenyButton: true,
@@ -79,8 +74,6 @@ export class PopUpSistemaComponent implements OnInit {
           })
         }
       })
-    }}else{
-      Swal.fire('Seleccione alguna de las opciones para el estado de Sistema',"", 'error')
     }
 
 

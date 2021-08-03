@@ -4,6 +4,25 @@
       <h3 class="text-center"> Listado de conexion</h3>
       <div class = "card-body">
         <div class="form-group row">
+          <div>
+            <div class="input-group" style="display: flex;
+            align-items: center;
+            justify-content: center;"  >
+            <div style="width:100px;">
+              <select  class="form-select" [(ngModel)]="opcion">
+                <option value="ruc"> RUC</option>
+                <option value="razonsocial"> Razon Social</option>
+              </select>
+            </div>
+
+              <div class="form-outline">
+                <input id="search-focus" type="text" [(ngModel)]="buscador" placeholder="Buscar" class="form-control" name="buscador" />
+              </div>
+              <button type="button" role="button" class="btn btn-primary" (click)="Buscar()">
+                <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
           <div class="col-sm-6">
             <button class="btn btn-primary" (click)="AbrirPopUp()" role="button">{{info}}</button>
           </div>
@@ -36,7 +55,7 @@
                       <td> {{ conexion.tomcatusuario}}</td>
                       <td> {{ conexion.tomcatcontra}}</td>
                       <td> {{ conexion.weburl}}</td>
-                      <td> {{ conexion.empresa.nomempresa}}</td>
+                      <td> {{ conexion.empresa.razonsocial}}</td>
                       <td>
                         <button type="button" name="button" (click)="modificar(conexion)" class="btn btn-primary">Editar</button>
                       </td>
@@ -47,8 +66,17 @@
               </tbody>
           </table>
       </div>
-      <div style="margin-left: 30px;">
-        <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo" ></app-paginador>
+      <div style="display: flex;" >
+        <div style="margin-left: 30px;">
+          <app-paginador *ngIf="paginador" [paginador]="paginador" [tipo]="tipo" >
+          </app-paginador>
+        </div>
+        <div  style="position:absolute; right:60px; width: 35%;">
+           <span  style="float: right;" >Total de registros: {{nroTotal}}</span>
+
+        </div>
+
       </div>
+
   </div>
 </div>

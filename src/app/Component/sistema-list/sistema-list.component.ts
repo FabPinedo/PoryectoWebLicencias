@@ -19,6 +19,8 @@ export class SistemaListComponent implements OnInit {
   sistemas:Sistema[]=[]
   paginador:any
   tipo:string='Sistema'
+  activado:boolean= false
+  nroTotal:number
 
   constructor(
     private route: Router,
@@ -33,11 +35,25 @@ export class SistemaListComponent implements OnInit {
     this.rutas.paramMap.subscribe(params=>{
       console.log(params)
       var pagina: number = +params.get("page");
-      console.log(pagina)
-    this.sistemaServicio.getSistemaPagina(pagina).subscribe((response:any)=>{
+      if(params.get("estado")!=null){
+        const estado=params.get("estado")
+        this.tipo='Sistema/estado/'+estado
+        this.activado=false
+        this.sistemaServicio.getSistemaPaginaByestado(pagina).subscribe((response:any)=>{
+        this.sistemas=response.content as Sistema[];
+        this.paginador=response
+        this.nroTotal=response.totalElements
+
+      })
+    }else{
+      this.activado=true
+      this.tipo='Sistema/page'
+      this.sistemaServicio.getSistemaPagina(pagina).subscribe((response:any)=>{
       this.sistemas=response.content as Sistema[];
       this.paginador=response;
+      this.nroTotal=response.totalElements
       });
+    }
   })
     ;
 
@@ -131,6 +147,15 @@ eliminar(sistema:Sistema){
         })
      }
     })
+  }
+  MostrarInactivos(event:any){
+
+    if(this.activado==false){
+      this.route.navigate(['/Sistema/page/',0])
+    }else if(this.activado==true){
+      this.route.navigate(['/Sistema/estado/',"all",0])
+    }
+  //this.activado=="Mostrar Inactivos"
   }
 
 

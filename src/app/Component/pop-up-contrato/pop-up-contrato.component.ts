@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Conexion } from 'src/app/Clases/conexion';
 import { Contrato } from 'src/app/Clases/contrato';
@@ -10,6 +10,7 @@ import { ContratoService } from 'src/app/Servicio/contrato.service';
 import { EmpresaService } from 'src/app/Servicio/empresa.service';
 import { SistemaService } from 'src/app/Servicio/sistema.service';
 import Swal from 'sweetalert2';
+import { BusquedaComponent } from '../busqueda/busqueda.component';
 
 @Component({
   selector: 'app-pop-up-contrato',
@@ -24,6 +25,10 @@ export class PopUpContratoComponent implements OnInit {
   sistemas:Sistema[]=[];
   conexiones:Conexion[]=[];
   infoBoton="Crear"
+  opcion:string
+  buscador:string
+  conexionHabilitar:boolean=true
+  vacio:boolean=false
   constructor(
     private route: Router,
     private contratoService:ContratoService,
@@ -31,6 +36,7 @@ export class PopUpContratoComponent implements OnInit {
     private sistemaservicio:SistemaService,
     private conexionservicio:ConexionService,
     private dialog: MatDialog,
+    private dialog2:MatDialogRef<any>,
     private dialogref:MatDialogRef<PopUpContratoComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: Contrato){
       if(data!=null){
@@ -39,11 +45,11 @@ export class PopUpContratoComponent implements OnInit {
     }
     }
   ngOnInit(): void {
-    this.empresaservicio.getEmpresa().subscribe((data: Empresa[]) => {
+    this.empresaservicio.getEmpresaListadoActivos().subscribe((data: Empresa[]) => {
       console.log(data);
       this.empresas = data;
     });
-    this.sistemaservicio.getSistema().subscribe((data: Sistema[]) => {
+    this.sistemaservicio.getSistemaListadoActivo().subscribe((data: Sistema[]) => {
       console.log(data);
       this.sistemas = data;
     });
@@ -53,6 +59,7 @@ export class PopUpContratoComponent implements OnInit {
     });
 
   }
+
 
   crearModificarcontrato(){
     if(this.infoBoton=="Crear"){
@@ -119,8 +126,65 @@ export class PopUpContratoComponent implements OnInit {
 
   }
 }
+AbrirPopUp(popup){
+  const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width="800px";
+    this.dialog2=this.dialog.open(popup,dialogConfig)
+}
+
   cancelar(){
     this.dialogref.close();
+  }
+  Buscar(){
+    if(this.opcion=="ruc"){
+      this.empresas=null
+      this.empresaservicio.getEmpresaByRUC(this.buscador).subscribe((data:Empresa[])=>{
+
+        this.empresas=data
+        if(this.empresas.length==0){
+          this.vacio=true
+        }
+      })
+    }else if (this.opcion=="razonsocial"){
+      this.empresas=null
+      this.empresaservicio.getEmpresaByRazon(this.buscador).subscribe((data:Empresa[])=>{
+        this.empresas=data
+        if(this.empresas.length==0){
+          this.vacio=true
+        }
+      }
+      )
+    }else{
+      Swal.fire('Por favor escoger una de las opciones de busqueda', 'Escoger entre busqueda por ruc o razon social', 'error')
+
+    }
+
+
+  }
+  seleccionar1(empresa:Empresa){
+    this.contrato.codempresa=empresa.id
+    this.dialog2.close();
+    this.conexionHabilitar=false
+    console.log(this.conexionHabilitar)
+    this.conexionservicio.getConexionbyIDEmpresa(empresa.id).subscribe((data:Conexion[])=>
+this.conexiones=data
+    );
+
+
+  }
+  seleccionar2(sistema:Sistema){
+    this.contrato.codsistema=sistema.id
+    this.dialog2.close();
+
+  }
+  resetear(){
+    this.empresaservicio.getEmpresaListadoActivos().subscribe((data: Empresa[]) => {
+      console.log(data);
+      this.empresas = data;
+    });
   }
 
 }
