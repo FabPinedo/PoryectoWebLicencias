@@ -15,7 +15,7 @@ import { PopupComponent } from '../popupEmpresa/popup.component';
   templateUrl: './empresa-list.component.html'
 })
 export class EmpresaListComponent implements OnInit {
-  info:string="Creacion de nuevos datos de empresa "
+  info:string="Nueva empresa "
   empresa:Empresa=new Empresa();
   empresas:Empresa[]=[]
   listaOriginal:Empresa[]=[]

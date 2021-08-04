@@ -13,7 +13,7 @@ import { PopUpConexionComponent } from '../pop-up-conexion/pop-up-conexion.compo
 })
 export class ConexionListComponent implements OnInit {
 
-  info:string="Creacion de nuevos datos de conexion "
+  info:string="Nueva conexion"
   conexion:Conexion=new Conexion();
   conexiones:Conexion[]=[]
   paginador:any

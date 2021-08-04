@@ -63,14 +63,15 @@ export class PopUpContratoComponent implements OnInit {
 
   crearModificarcontrato(){
     if(this.infoBoton=="Crear"){
-      if(this.contrato.estado!=null){
+      this.contrato.estado=false
         if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
           if(parseInt(this.contrato.token)>100000){
-            console.log("FUNCIONA")
-            this.contratoService.crearContrato(this.contrato).subscribe(
-            response=>{
-            console.log(this.contrato)
-            Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success').then(result=>{
+            if(this.contrato.cantactivos>0 && this.contrato.cantusuarios>0){
+             console.log(this.contrato)
+             this.contratoService.crearContrato(this.contrato).subscribe(
+             response=>{
+             console.log(this.contrato)
+             Swal.fire('Nueva Contrato realizado',`Numero de contrato: ${this.contrato.id} creado con exito `, 'success').then(result=>{
               if(result.isConfirmed){
                 this.dialogref.close();
                 window.location.reload();
@@ -78,18 +79,22 @@ export class PopUpContratoComponent implements OnInit {
             })
 
             })
+            }else{
+              Swal.fire('Datos invalidos en los campos cantidad de activos o cantidad de usuarios ',"La cantidad minima para cantidad de usuarios y activos debe ser 1", 'error')
+
+            }
+
           }else{
             Swal.fire('El token no es valido',"", 'error')
             }
         }else{
           Swal.fire('Seleccione fechas validas, la fecha de inicio no puede ser mayor a la fecha fin ',"", 'error')
         }
-    }else{
-      Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
-    }
+
     }else if(this.infoBoton="Modificar"){
-      if(this.contrato.estado!=null){
+      console.log(this.contrato)
         if(this.contrato.fechafincontrato>this.contrato.fechainicontrato){
+          if(this.contrato.cantactivos>0 && this.contrato.cantusuarios>0){
             Swal.fire({
             title: `Se hara el siguiente cambio de datos del contrato: ${this.contrato.id}`,
             showDenyButton: true,
@@ -107,9 +112,7 @@ export class PopUpContratoComponent implements OnInit {
                   window.location.reload();
                 }
               })
-            })
-
-            }else if (result.isDenied) {
+            })}else if (result.isDenied) {
               Swal.fire('No se produjo ningun cambio', '', 'info').then(result=>{
                 if(result.isConfirmed){
                   window.location.reload();
@@ -117,12 +120,12 @@ export class PopUpContratoComponent implements OnInit {
               })
             }
             })
+          }else{
+            Swal.fire('Datos invalidos en los campos cantidad de activos o cantidad de usuarios ',"La cantidad minima para cantidad de usuarios y activos debe ser 1", 'error')
+          }
         }else{
           Swal.fire('Seleccione fechas validas, la fecha de inicio no puede ser mayor a la fecha fin ',"", 'error')
           }
-      }else{
-        Swal.fire('Seleccione alguna de las opciones para el estado del Contrato',"", 'error')
-     }
 
   }
 }
@@ -169,9 +172,12 @@ AbrirPopUp(popup){
     this.dialog2.close();
     this.conexionHabilitar=false
     console.log(this.conexionHabilitar)
-    this.conexionservicio.getConexionbyIDEmpresa(empresa.id).subscribe((data:Conexion[])=>
-this.conexiones=data
-    );
+    this.conexionservicio.getConexionbyIDEmpresa(empresa.id).subscribe((data:Conexion[])=>{
+    this.conexiones=data
+    if(this.conexiones.length==0){
+      Swal.fire('No existen conexiones', 'La empresa seleccionada no tiene ninguna conexion creada', 'info')
+     }
+    });
 
 
   }

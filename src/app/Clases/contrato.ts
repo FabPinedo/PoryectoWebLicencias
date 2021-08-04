@@ -14,4 +14,6 @@ export class Contrato {
   fechafincontrato:Date;
   estado:boolean;
   token:string;
+  cantactivos:number;
+  cantusuarios:number;
 }

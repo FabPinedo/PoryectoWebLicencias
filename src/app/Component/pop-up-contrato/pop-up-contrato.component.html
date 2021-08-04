@@ -11,7 +11,7 @@
             [(ngModel)]="contrato.codempresa"
             name="codempresa" id="codempresa" required #codempresa="ngModel" disabled>
               <option value="">Selecciona una opción</option>
-              <option *ngFor = "let empresa of empresas"  [value]="empresa.id">  {{ empresa.nomcomercial }}</option>
+              <option *ngFor = "let empresa of empresas"  [value]="empresa.id">  {{ empresa.razonsocial }}</option>
             </select>
             <div class="invalid-feedback" *ngIf="codempresa.errors && (codempresa.dirty ||codempresa.touched)" >
               <div *ngIf="codempresa.errors.required">
@@ -102,7 +102,7 @@
           <div class="col-sm-6">
             <input type="text" class="form-control"
             [ngClass]="{'is-invalid':token.errors && (token.dirty ||token.touched)}"
-            [(ngModel)]="contrato.token" name="nombreComercial"
+            [(ngModel)]="contrato.token" name="token"
             required minlength="4" maxlength="6" #token="ngModel">
             <div class="invalid-feedback" *ngIf="token.errors && (token.dirty ||token.touched)" >
               <div *ngIf="token.errors.required">
@@ -110,6 +110,40 @@
               </div>
               <div *ngIf="token.errors.minlenght">
                 Debe ser de 6 digitos
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Cantidad de activos</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control"
+            [ngClass]="{'is-invalid':cantactivos.errors && (cantactivos.dirty ||cantactivos.touched)}"
+            [(ngModel)]="contrato.cantactivos" name="cantactivos"
+            required minlength="1" maxlength="6" #cantactivos="ngModel">
+            <div class="invalid-feedback" *ngIf="cantactivos.errors && (cantactivos.dirty ||cantactivos.touched)" >
+              <div *ngIf="token.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="token.errors.minlenght">
+                Debe ser de 1 digito
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Cantidad de usuarios </label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control"
+            [ngClass]="{'is-invalid':cantusuarios.errors && (cantusuarios.dirty ||cantusuarios.touched)}"
+            [(ngModel)]="contrato.cantusuarios" name="cantusuarios"
+            required minlength="1" maxlength="6" #cantusuarios="ngModel">
+            <div class="invalid-feedback" *ngIf="cantusuarios.errors && (cantusuarios.dirty ||cantusuarios.touched)" >
+              <div *ngIf="token.errors.required">
+                Este campo es obligatorio
+              </div>
+              <div *ngIf="token.errors.minlenght">
+                Debe ser de 1 digito
               </div>
             </div>
           </div>
@@ -250,7 +284,7 @@
                               <button type="button"  name="button" (click)="seleccionar2(sistema)" class="btn btn-primary">Seleccionar</button>
                             </td>
                         </tr>
-                       
+
                     </tbody>
                 </table>
               </div>

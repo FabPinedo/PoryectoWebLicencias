@@ -16,7 +16,7 @@ import { PopUpContratoComponent } from '../pop-up-contrato/pop-up-contrato.compo
 })
 export class ContratoListComponent implements OnInit {
 
-  info:string="Creacion de nuevos datos de contratos "
+  info:string="Nuevo contrato"
   empresa:Empresa;
   sistema:Sistema;
   conexion:Conexion;

@@ -39,6 +39,8 @@
                   <th> Fecha de fin </th>
                   <th> Estado </th>
                   <th> Token </th>
+                  <th> Cantidad de Activos </th>
+                  <th> Cantidad de Usuarios </th>
                   <th> Editar </th>
                   <th> Borrar </th>
               </thead>
@@ -60,6 +62,8 @@
                       </div>
                     </td>
                     <td> {{ contrato.token }}</td>
+                    <td> {{ contrato.cantactivos }}</td>
+                    <td> {{ contrato.cantusuarios }}</td>
                     <td>
                       <button type="button" name="button" (click)="modificar(contrato)" class="btn btn-primary">Editar</button>
                     </td>

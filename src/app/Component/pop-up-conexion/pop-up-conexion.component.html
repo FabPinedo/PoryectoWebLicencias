@@ -3,6 +3,30 @@
     <div class="card-header">{{info}}</div>
     <div class="card-body">
       <form #conexionform="ngForm">
+        <div class="form-group row">
+          <label for="id" class="col-form-label col-sm-2">Nombre de Empresa</label>
+          <div class="col-sm-6">
+            <select class="form-select" aria-label="Default select example"
+            [ngClass]="{'is-invalid':codEmpresa.errors && (codEmpresa.dirty ||codEmpresa.touched)}"
+            [(ngModel)]="conexion.codempresa"
+             name="codsistema" required  #codEmpresa="ngModel" disabled>
+             <option value="">Selecciona una opción</option>
+              <option *ngFor = "let empresa of empresas"  [value]="empresa.id">  {{ empresa.razonsocial }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="codEmpresa.errors && (codEmpresa.dirty ||codEmpresa.touched)" >
+              <div *ngIf="codEmpresa.errors.required">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </div>
+          <div  style="float: right; width: 20%; " >
+            <button type="button" role="button" class="btn btn-primary active" aria-pressed="true" (click)="AbrirPopUp(BUSCADOR)">
+              <i class="fas fa-search"></i>
+               </button>
+          </div>
+
+
+        </div>
 
         <div class="form-group row">
           <label for="id" class="col-form-label col-sm-2">Servidor Instancia</label>
@@ -157,30 +181,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="id" class="col-form-label col-sm-2">Nombre de Empresa</label>
-          <div class="col-sm-6">
-            <select class="form-select" aria-label="Default select example"
-            [ngClass]="{'is-invalid':codEmpresa.errors && (codEmpresa.dirty ||codEmpresa.touched)}"
-            [(ngModel)]="conexion.codempresa"
-             name="codsistema" required  #codEmpresa="ngModel" disabled>
-             <option value="">Selecciona una opción</option>
-              <option *ngFor = "let empresa of empresas"  [value]="empresa.id">  {{ empresa.nomempresa }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="codEmpresa.errors && (codEmpresa.dirty ||codEmpresa.touched)" >
-              <div *ngIf="codEmpresa.errors.required">
-                Este campo es obligatorio
-              </div>
-            </div>
-          </div>
-          <div  style="float: right; width: 20%; " >
-            <button type="button" role="button" class="btn btn-primary active" aria-pressed="true" (click)="AbrirPopUp(BUSCADOR)">
-              <i class="fas fa-search"></i>
-               </button>
-          </div>
 
-
-        </div>
       </form>
     </div>
   </div>
@@ -240,7 +241,7 @@
                     <tbody style="text-align: center; ">
                         <tr *ngFor = "let empresa of empresas">
                             <td> {{ empresa.id}}</td>
-                            <td> {{ empresa.razonsocial}}</td>
+                            <td> {{ empresa.razonsocial }}</td>
                             <td>{{ empresa.codigoruc }}</td>
                             <td>
                               <button type="button"  name="button" (click)="seleccionar(empresa)" class="btn btn-primary">Seleccionar</button>

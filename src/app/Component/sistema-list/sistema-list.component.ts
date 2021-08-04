@@ -14,7 +14,7 @@ import { PopupComponent } from '../popupEmpresa/popup.component';
   styleUrls: ['./sistema-list.component.css']
 })
 export class SistemaListComponent implements OnInit {
-  info:string="Creacion de nuevos datos de sistemas "
+  info:string="Nuevo sistema "
   sistema: Sistema=new Sistema();
   sistemas:Sistema[]=[]
   paginador:any
