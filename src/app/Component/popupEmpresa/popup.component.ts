@@ -15,9 +15,9 @@ export class PopupComponent implements OnInit {
   empresa:Empresa=new Empresa();
   infoBoton="Crear"
   constructor(
-    private route: Router,
+
     private empresaservicio:EmpresaService,
-    private dialog: MatDialog,
+    
 
     private dialogref:MatDialogRef<PopupComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: Empresa){

@@ -1,0 +1,50 @@
+<div style="align-items: center; justify-content: center;">
+  <div class="card bg-info text-dark" style="width: 300px; display: flex;
+  justify-content: center;top:50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -100px;
+  position: absolute;">
+    <div class="card-header">Validacion de usuario</div>
+    <div class="card-body">
+      <div class="input-group" style="display: flex;
+              align-items: center;
+              justify-content: center;"  >
+        <form class="needs-validation">
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" [(ngModel)]="usuario.codusuario" class="form-control" name="codusuario"
+            aria-describedby="Usuariohelp" required maxlength="200" minlength="1" #codusuario="ngModel"
+            [ngClass]="{'is-invalid':codusuario.errors && (codusuario.dirty ||codusuario.touched)}">
+            <div id="Usuariohelp" class="form-text">aqui va algo si necesito</div>
+            <div class="invalid-feedback" *ngIf="codusuario.errors && (codusuario.dirty ||codusuario.touched)" >
+              <div *ngIf="codusuario.errors.required">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Password</label>
+            <input type="password" [(ngModel)]="usuario.despassword " name="despassword" class="form-control"
+            required maxlength="200" minlength="1" #contra="ngModel"
+            [ngClass]="{'is-invalid':contra.errors && (contra.dirty ||contra.touched)}" >
+            <div class="invalid-feedback" *ngIf="contra.errors && (contra.dirty ||contra.touched)" >
+              <div *ngIf="contra.errors.required ">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="recordarUser">
+            <label class="form-check-label" for="recordarUser">Recordar Usuario</label>
+
+          </div>
+          <button type="submit" (click)="ingresar()" class="btn btn-dark">Ingresar</button>
+        </form>
+
+            </div>
+
+    </div>
+  </div>
+  </div>
+

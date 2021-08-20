@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="card-header"  >
+    <div class="bordeado" style="display: flex;">
+    <!--PARTE IZQUIERDA-->
+        <div  style="width: 30%; " >
+          <img  style="display:block;
+          margin:auto;  margin-top: 20px;" class="img-fluid"  src="../../../assets/img/LOGO_AQ.png">
+        </div>
+        <!--PARTE DERECHA-->
+        <div style="width: 70%; float: right;">
+          <!--PARTE SUPERIOR-->
+        <div style="align-items: center; text-align: center;">
+          <h1>SITIA ADVANCE</h1>
+        </div>
+        <!--PARTE INFERIOR-->
+        <div style="margin-left: 40px;">
+          <div class="mb-3">
+            <label class="form-label">{{InfoEmpresa}}</label>
+          </div>
+          <div class="mb-3">
+            <div style="display: flex;">
+              <label style="width: 30%;" class="form-label">INICIO DE PROYECTO </label>
+              <label style="width: 70%;" class="form-label">{{FechaInicio|date:'dd/MM/yyyy'}}</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div style="display: flex;">
+              <label style="width: 30%;" class="form-label">FIN DE PROYECTO </label>
+              <label style="width: 70%;" class="form-label">{{FechaFin|date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="display: flex; text-align: center; margin: auto;">
+    <div style="width: 33%;" >
+      <div class="bordeado" style="margin-left: 10px;">
+        <div  class="mb-3">
+          <label class="form-label"> Avance Total </label>
+        </div>
+        <div class="mb-3">
+        {{avanceTotal|number}} %
+        </div>
+      </div>
+    </div>
+    <div style="width: 33%;">
+      <div class="bordeado"  style="margin-left: 10px;">
+        <div  class="mb-3">
+          <label class="form-label"> Total </label>
+        </div>
+        <div class="mb-3">
+        {{TotalInventario}}
+        </div>
+      </div>
+    </div>
+    <div style="width: 33%;">
+      <div class="bordeado"  style="margin-left: 10px;">
+        <div  class="mb-3">
+          <label class="form-label"> Inventario </label>
+        </div>
+        <div class="mb-3">
+        {{InventarioIngresado}}
+        </div>
+      </div>
+  </div>
+  </div>
+    <div>
+      <div id="chartdiv" style="width: 900px; height: 500px; margin: auto;" class="grafico">
+    </div>
+    <div id="chartdiv2" style="width: 900px; height: 500px; margin: auto;" class="grafico">
+    </div>
+    </div>
+
+  </div>
+</div>
+
+

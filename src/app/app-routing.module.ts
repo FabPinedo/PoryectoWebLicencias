@@ -3,9 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConexionListComponent } from './Component/conexion-list/conexion-list.component';
 import { ContratoListComponent } from './Component/contrato-list/contrato-list.component';
 import { EmpresaListComponent } from './Component/empresa-list/empresa-list.component';
+import { ProgresoComponent } from './Component/progreso/progreso.component';
 import { SistemaListComponent } from './Component/sistema-list/sistema-list.component';
+import { UsuarioComponent } from './component/usuario/usuario.component';
 
 const routes: Routes = [
+  { path: '', component: UsuarioComponent},
 
   { path: 'Empresa/page/:page', component: EmpresaListComponent},
   { path: 'Empresa/ruc/:ruc/:page', component: EmpresaListComponent},
@@ -23,6 +26,10 @@ const routes: Routes = [
   { path: 'Conexion/page/:page', component: ConexionListComponent},
   { path: 'Conexion/ruc/:ruc/:page', component: ConexionListComponent},
   { path: 'Conexion/razonsocial/:razon/:page', component: ConexionListComponent},
+
+  { path: 'Progreso/usuario', component: ProgresoComponent},
+
+  { path: 'Usuario', component: UsuarioComponent},
 /*
   { path: '/Empresa', component: EmpresaListComponent},
   { path: '/Contrato', component: ContratoListComponent},

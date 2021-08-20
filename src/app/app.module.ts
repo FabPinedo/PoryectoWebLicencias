@@ -19,6 +19,8 @@ import { PopUpConexionComponent } from './Component/pop-up-conexion/pop-up-conex
 import { PopUpContratoComponent } from './Component/pop-up-contrato/pop-up-contrato.component';
 import { PaginadorComponent } from './Component/paginador/paginador.component';
 import { BusquedaComponent } from './Component/busqueda/busqueda.component';
+import { ProgresoComponent } from './Component/progreso/progreso.component';
+import { UsuarioComponent } from './component/usuario/usuario.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { BusquedaComponent } from './Component/busqueda/busqueda.component';
     PopUpConexionComponent,
     PopUpContratoComponent,
     PaginadorComponent,
-    BusquedaComponent
+    BusquedaComponent,
+    ProgresoComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,
